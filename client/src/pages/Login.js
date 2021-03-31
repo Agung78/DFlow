@@ -3,6 +3,7 @@ import { useState } from "react"
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [err, setErr] = useState(null)
   function handleChange(e) {
     if (e.target.name === 'email') {
       setEmail(e.target.value)
@@ -20,7 +21,11 @@ export default function Login() {
         body: JSON.stringify({ email, password })
       })
       const data = await response.json()
-      console.log(data)
+      if (data.msg) {
+        setErr(data.msg)
+      } else {
+        console.log(data, 'ini token')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -51,6 +56,11 @@ export default function Login() {
             </div>
             <button type="button" className="btn btn-primary" onClick={formSubmit}>Submit</button>
           </form>
+          {
+            err ? <p>{err}</p>
+              :
+              <p></p>
+          }
         </div>
       </div>
     </div>

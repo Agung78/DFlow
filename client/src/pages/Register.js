@@ -55,6 +55,9 @@ export default function Register() {
             <button type="button" className="btn btn-primary" onClick={formSubmit}>Submit</button>
           </form>
         </div>
+        {
+
+        }
       </div>
     </div>
   )
