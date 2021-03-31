@@ -25,6 +25,7 @@ class Controller {
   }
 
   static async register(req, res) {
+    console.log(req.body, 'ini server')
     try {
       const post = new User({
         email: req.body.email,
@@ -34,7 +35,7 @@ class Controller {
       const savedPost = await post.save()
       const token = await generateToken(savedPost)
       nodeMailer(req.body.email, token)
-      res.json(token)
+      res.status(200).json(token)
     } catch (error) {
       res.json({ msg: error })
     }
