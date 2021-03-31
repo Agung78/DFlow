@@ -1,6 +1,6 @@
 const User = require('../models/postUser')
 const { generateToken, verifyToken } = require('../helper/jwt')
-const { nodeMailer, forgotPassword } = require('../helper/nodemailer')
+const { nodeMailer, forgotPass } = require('../helper/nodemailer')
 
 class Controller {
   static async landingPage(req, res) {
@@ -70,7 +70,7 @@ class Controller {
     try {
       const user = await User.findOne({ email: req.body.email })
       if (user !== null) {
-        forgotPassword(req.body.email)
+        forgotPass(req.body.email)
         res.json('Forgot Password')
       } else {
         res.json({ msg: 'Email not registered yet!' })
@@ -84,7 +84,7 @@ class Controller {
     try {
       const query = { email: req.body.email };
       const user = await User.findOneAndUpdate(query, { password: req.body.password })
-      return res.send('reset password')
+      res.json('reset password')
     } catch (error) {
       res.json({ msg: error })
     }

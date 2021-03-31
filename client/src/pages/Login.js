@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { useHistory } from "react-router"
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [err, setErr] = useState(null)
+  const history = useHistory()
   function handleChange(e) {
     if (e.target.name === 'email') {
       setEmail(e.target.value)
@@ -24,11 +26,18 @@ export default function Login() {
       if (data.msg) {
         setErr(data.msg)
       } else {
+        localStorage.setItem('access_token', data)
+        localStorage.setItem('email', email)
+        history.push('/profile')
         console.log(data, 'ini token')
       }
     } catch (error) {
       console.log(error)
     }
+  }
+  async function forgetButton() {
+    // console.log('forget button')
+    history.push('/forgot-password')
   }
   return (
     <div className="container">
@@ -55,6 +64,7 @@ export default function Login() {
                 name="password" onChange={(e) => handleChange(e)} />
             </div>
             <button type="button" className="btn btn-primary" onClick={formSubmit}>Submit</button>
+            <button type="button" className="btn btn-warning ml-2" onClick={forgetButton}>Forget Password</button>
           </form>
           {
             err ? <p>{err}</p>

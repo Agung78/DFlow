@@ -31,20 +31,21 @@ function nodeMailer(receiver, token) {
     }
   });
 }
+{/* <form method="post" action="http://localhost:3000/reset-password" target="_blank">
+        <input type="hidden" name="extra_submit_param">
+        <button type="submit" name="submit_param" >
+          Click to reset password
+        </button>
+      </form> */}
 
-function forgotPassword(receiver) {
+function forgotPass(receiver) {
   const message = {
     from: 'dflow@work.com', // Sender address
     to: receiver,         // List of recipients
     subject: 'You just clicked forgot password', // Subject line
     html: `
-      <p>Click link below to create new password!<p>
-      <form method="post" action="halaman front-end reset password" target="_blank">
-        <input type="hidden" name="extra_submit_param">
-        <button type="submit" name="submit_param" >
-          Click to activate
-        </button>
-      </form>
+      <p>Click link below to create a new password to your account!<p>
+      <a href="http://localhost:3000/reset-password">Click to reset password</a>
       `
   };
   transport.sendMail(message, function (err, info) {
@@ -58,5 +59,5 @@ function forgotPassword(receiver) {
 
 module.exports = {
   nodeMailer,
-  forgotPassword
+  forgotPass
 }
